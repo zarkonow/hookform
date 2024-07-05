@@ -1,4 +1,6 @@
 import {useForm} from "react-hook-form";
+import {EmailValidator} from "../Validators/EmailValidator";
+import {PasswordValidator} from "../Validators/PasswordValidator";
 
 
 export const LoginForm = props => {
@@ -16,16 +18,15 @@ export const LoginForm = props => {
     return <>
         <form onSubmit={handleSubmit(formSubmitted)}>
 
-            <input type='text' placeholder='Unesite vase ime'/>
 
-            {errors.password && <p>Lozinka je Obavezna</p>}
-            <input {...register('password', {
-                required: true,
-                validate: {
-                    trimCheck: value => value.trim() !== '' || 'Lozinka ne moze biti prazan prostor'
-                }
+            {errors.email && <p>{ errors.email.message }</p>}
+            <input {...register("email", EmailValidator)} type='text' placeholder='Unesite vase email'/>
 
-            })} type='password' placeholder='Unesite Lozinku'/>
+
+
+
+            {errors.password && <p>{errors.password.message}</p>}
+            <input {...register('password', PasswordValidator)} type='password' placeholder='Unesite Lozinku'/>
             <button>Login</button>
         </form>
 
